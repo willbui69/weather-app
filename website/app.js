@@ -10,19 +10,21 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 document.getElementById('generate').addEventListener('click', requestData);
 
 function requestData(){
+    // Get the data entered by user
     const zipCode = document.getElementById('zip').value;
     const feelings = document.getElementById('feelings').value; 
+
     getWeatherData(baseURL, zipCode, apiKey)
     .then((data) => {
-        //Add data to POST request
+        //Function to add data to POST request
         postData('/post', {temperature:data.temp, date:newDate, userResponse:feelings})
     })
-    .then(() => {
-        //Get data from server's endpoint
+    .then(() => 
+        //Function to get data from server's endpoint
         getData('/get')
-    })
+    )
     .then((serverData)=>{
-        //Update html values
+        //Function to update html values
         updateValues(serverData.temp, serverData.date, serverData.feeling)
     })
 }
@@ -33,7 +35,6 @@ const getWeatherData = async (baseURL, zipCode, apiKey) =>  {
     try {
         const json = await response.json();
         const data = await json.main;
-        console.log(data);
         return data;
     }catch(error) {
         console.log("error", error);
@@ -52,7 +53,6 @@ const postData = async( url = '', data = {}) => {
     })
     try {
         const newdata = await response.json();
-        console.log(newdata);
         return newdata
     } catch(error) {
         console.log("error", error);
@@ -64,7 +64,6 @@ const getData = async(url='') =>{
     const response = await fetch(url)
     try {
         const serverData = response.json();
-        console.log(serverData);
         return serverData
     }catch(error) {
         console.log("error", error)
