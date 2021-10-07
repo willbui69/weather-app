@@ -31,7 +31,7 @@ function requestData(){
 
 // Retrieve weather data from external site
 const getWeatherData = async (baseURL, zipCode, apiKey) =>  {
-    const response = await fetch(`https:api.openweathermap.org/data/2.5/weather?zip=${zipCode},au&appid=${apiKey}`)
+    const response = await fetch(`https:api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${apiKey}`)
     try {
         const json = await response.json();
         const data = await json.main;
