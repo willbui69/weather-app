@@ -1,10 +1,10 @@
 /* Global Variables */
-let baseURL = 'api.openweathermap.org/data/2.5/weather?';
-let apiKey  =  '5850bcbfbdaeeae126a64a6d4a85723e';
+const baseURL = 'api.openweathermap.org/data/2.5/weather?';
+const apiKey  =  '5850bcbfbdaeeae126a64a6d4a85723e';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = d.getMonth() + 1 + '.' + d.getDate()+ '.' + d.getFullYear();
 
 //Make a GET request to the openweathermap api site
 document.getElementById('generate').addEventListener('click', requestData);
@@ -31,7 +31,7 @@ function requestData(){
 
 // Retrieve weather data from external site
 const getWeatherData = async (baseURL, zipCode, apiKey) =>  {
-    const response = await fetch(`https:api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${apiKey}`)
+    const response = await fetch(`https:api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${apiKey}&units=metric`)
     try {
         const json = await response.json();
         const data = await json.main;
@@ -72,7 +72,9 @@ const getData = async(url='') =>{
 
 //Update the UI dynamically
 const updateValues = async(temp, date, feeling)=>{
-    document.getElementById('date').innerHTML = temp;
-    document.getElementById('temp').innerHTML = date;
-    document.getElementById('content').innerHTML = feeling;
+    document.getElementById('date').innerHTML = `
+    <br/>
+    <p>Temperature: ${temp}&deg;</p>`;
+    document.getElementById('temp').innerHTML = `<p>Date: ${date}</p>`;
+    document.getElementById('content').innerHTML = `<p> I'm feelling ${feeling} today</p>`;
 }
